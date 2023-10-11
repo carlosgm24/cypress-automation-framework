@@ -12,6 +12,8 @@ context('Home Page', () => {
   })
 
   it('should visit the correct CCV url', () => {
+    cy.get('syn-restool form', {timeout: 5000}).should('be.visible')
+
     cy.url().should('eq', vendor.url + '/search')
   });
 
@@ -19,9 +21,9 @@ context('Home Page', () => {
     // Intercepts the Packages request
     cy.intercept('GET', '**/api/v1/Packages?*').as('getPackages')
     cy.wait('@getPackages').its('response.statusCode').should('eq', 200)
-    //Leaving from input
+    //'Leaving from' input
     cy.get('#mat-input-2').clear().type(vendor.origin).tab()
-    //Going to input
+    //'Going to' input
     cy.get('#mat-input-1').clear().type(vendor.destination).tab()
     //Travel Dates input
     cy.get('#mat-date-range-input-0').click()
