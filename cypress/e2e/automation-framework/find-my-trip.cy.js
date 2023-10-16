@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context('Home Page', () => {
+context('Find my trip Page', () => {
   beforeEach(() => {
     // load vendor-ccv.json fixture file and store
     cy.fixture('vendor-ccv.json').then((vendor) => {

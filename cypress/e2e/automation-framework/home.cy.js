@@ -12,15 +12,15 @@ context('Home Page', () => {
   })
 
   it('should visit the correct CCV url', () => {
+    // Wait form the search form to be visible
     cy.get('syn-restool form', {timeout: 5000}).should('be.visible')
 
     cy.url().should('eq', vendor.url + '/search')
   });
 
   it('should make a successful search', () => {
-    // Intercepts the Packages request
-    // cy.intercept('GET', '**/api/v1/Packages?*').as('getPackages')
-    // cy.wait('@getPackages').its('response.statusCode').should('eq', 200)
+    // Wait form the search form to be visible
+    cy.get('syn-restool form', {timeout: 5000}).should('be.visible')
     //'Leaving from' input
     cy.get('#mat-input-2').clear().type(vendor.origin).tab()
     //'Going to' input
