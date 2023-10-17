@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import homePage from '../../pages/homePage'
 
 context('Home Page', () => {
   beforeEach(() => {
@@ -8,46 +9,31 @@ context('Home Page', () => {
     })
 
     //load the vendor's page
-    cy.visit('https://booking.cheapcaribbean.com/search')
+    homePage.open();
   })
 
   it('should visit the correct CCV url', () => {
     // Wait form the search form to be visible
-    cy.get('syn-restool form', {timeout: 5000}).should('be.visible')
+    homePage.getSearchForm().should('be.visible');
 
     cy.url().should('eq', vendor.url + '/search')
   });
 
   it('should make a successful search', () => {
     // Wait form the search form to be visible
-    cy.get('syn-restool form', {timeout: 5000}).should('be.visible')
-    //'Leaving from' input
-    cy.get('#mat-input-2').clear().type(vendor.origin).tab()
-    //'Going to' input
-    cy.get('#mat-input-1').clear().type(vendor.destination).tab()
-    //Travel Dates input
-    cy.get('#mat-date-range-input-0').click()
-    // advance 4 months
-    for (let i = 0; i < 4; i++) {
-      cy.get('button.mat-calendar-next-button').click()
-    }
-    cy.get('mat-month-view').contains('1').click()
-    cy.get('mat-month-view').contains('8').click()
-    //Rooms and Travelers input
-    cy.get('[data-e2e="editPassengers"]').click()
-    cy.get('[data-e2e="removeAdult_1"]').click()
-    cy.get('[data-e2e="addChild_1"]').click()
-    cy.get('[data-e2e="childAge_1_1"]').click()
-    cy.get('mat-option .mat-option-text').contains('5').click()
-    cy.get('[aria-label="Apply selections and close dialog"]').click()
+    homePage.getSearchForm().should('be.visible');
 
-    // Intercept the Availability request
-    cy.intercept('POST', '**/api/v1/Availability').as('getHotelAvails')
-    cy.intercept('GET', '**/api/v1/Carts/*').as('getCart')
+    //Make a search in home page
+    homePage.populateSearchForm(vendor.origin, vendor.destination, vendor.travelDay, vendor.returnDay, vendor.childAge);
+
+    // Intercept the Availability and Carts request
+    homePage.interceptRequest('POST', '**/api/v1/Availability', 'getHotelAvails');
+    homePage.interceptRequest('GET', '**/api/v1/Carts/*', 'getCart');
     //Search button click
-    cy.get('[data-e2e="restoolSubmitButton"]').click()
+    homePage.submitSearch();
+
+    // Wait on the Availability and Carts request
     cy.wait('@getHotelAvails', {responseTimeout: 60000}).its('response.statusCode').should('eq', 200)
-    // Intercepts the Cart request
     cy.wait('@getCart').its('response.statusCode').should('eq', 200)
 
     // Check URL

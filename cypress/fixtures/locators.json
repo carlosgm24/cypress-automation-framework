@@ -1,0 +1,27 @@
+{
+    "home": {
+        "searchForm": "syn-restool form",
+        "leavingFromInput": "#mat-input-2",
+        "goingToInput": "#mat-input-1",
+        "searchFormSubmitButton": "[data-e2e='restoolSubmitButton']",
+        "travelDates": {
+            "travelDatesInput": "#mat-date-range-input-0",
+            "calendarNextButton": "button.mat-calendar-next-button",
+            "monthView": "mat-month-view"
+        },
+        "roomsAndTravelers": {
+            "editPassengersInput": "[data-e2e='editPassengers']",
+            "removeAdultButton": "[data-e2e='removeAdult_1']",
+            "addChildButton": "[data-e2e='addChild_1']",
+            "childAgeDropdown": "[data-e2e='childAge_1_1']",
+            "childAgeDropdownOptions": "mat-option .mat-option-text",
+            "doneButton": "[aria-label='Apply selections and close dialog']"
+        }
+    },
+    "findMyTrip": {
+        "reservationNumberInput": "[data-e2e='reservationNumber']",
+        "reservationNumberError": "#mat-error-1",
+        "emailAddressInput": "[data-e2e='emailAddress']",
+        "emailAddressError": "#mat-error-2"
+    }
+}

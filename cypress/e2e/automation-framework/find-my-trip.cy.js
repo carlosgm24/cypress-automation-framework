@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import findMyTripPage from '../../pages/findMyTripPage'
 
 context('Find my trip Page', () => {
   beforeEach(() => {
@@ -8,7 +9,7 @@ context('Find my trip Page', () => {
     })
 
     //load the vendor's page
-    cy.visit('https://booking.cheapcaribbean.com/reservations/retrieve')
+    findMyTripPage.open();
   })
 
   it('should visit the correct CCV url', () => {
@@ -17,16 +18,10 @@ context('Find my trip Page', () => {
 
   describe('Field validations', () => {
 
-    //Max chars: 24, Min chars: 1, Only letters and numbers
-    it('should validate error messages in Reservation Number', () => {
-      cy.get('[data-e2e="reservationNumber"]').clear().tab()
-      cy.get('#mat-error-1').should('have.text', 'Enter a reservation number.')
+    it('should validate error messages in Find Your Reservation Form', () => {
+      findMyTripPage.triggerFormErrorMessages();
+      findMyTripPage.getReservationNumberError().should('have.text', 'Enter a reservation number.')
+      findMyTripPage.getEmailAddressError().should('have.text', 'Enter an email address.')
     });
-
-    it('should validate error messages in Email Address', () => {
-      cy.get('[data-e2e="emailAddress"]').clear().tab()
-      cy.get('#mat-error-2').should('have.text', 'Enter an email address.')
-    });
-    
   });
 })
