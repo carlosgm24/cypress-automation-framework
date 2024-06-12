@@ -3,40 +3,37 @@ import homePage from '../../pages/homePage'
 
 context('Home Page', () => {
   beforeEach(() => {
-    // load vendor-ccv.json fixture file and store
-    cy.fixture('vendor-ccv.json').then((vendor) => {
+    // load site-info.json fixture file and store
+    cy.fixture('site-info.json').then((vendor) => {
       globalThis.vendor = vendor
     })
 
-    //load the vendor's page
+    //load the testing site
     homePage.open();
   })
 
-  it('should visit the correct CCV url', () => {
-    // Wait form the search form to be visible
-    homePage.getSearchForm().should('be.visible');
-
-    cy.url().should('eq', vendor.url + '/search')
+  it('should visit the correct home url', () => {
+    cy.url().should('eq', vendor.url)
   });
 
-  it('should make a successful search', () => {
-    // Wait form the search form to be visible
-    homePage.getSearchForm().should('be.visible');
-
+  it('should send a successful form', () => {
     //Make a search in home page
-    homePage.populateSearchForm(vendor.origin, vendor.destination, vendor.travelDay, vendor.returnDay, vendor.childAge);
+    homePage.populateContactForm(vendor.home.contactForm.name, vendor.home.contactForm.email, vendor.home.contactForm.phone, vendor.home.contactForm.subject, vendor.home.contactForm.description);
 
     // Intercept the Availability and Carts request
-    homePage.interceptRequest('POST', '**/api/v1/Availability', 'getHotelAvails');
-    homePage.interceptRequest('GET', '**/api/v1/Carts/*', 'getCart');
-    //Search button click
-    homePage.submitSearch();
+    // homePage.interceptRequest('POST', '**/api/v1/Availability', 'getHotelAvails');
+    // homePage.interceptRequest('GET', '**/api/v1/Carts/*', 'getCart');
+    //Submit contact button
+    homePage.submitContactForm();
 
     // Wait on the Availability and Carts request
-    cy.wait('@getHotelAvails', {responseTimeout: 60000}).its('response.statusCode').should('eq', 200)
-    cy.wait('@getCart').its('response.statusCode').should('eq', 200)
+    // cy.wait('@getHotelAvails', {responseTimeout: 60000}).its('response.statusCode').should('eq', 200)
+    // cy.wait('@getCart').its('response.statusCode').should('eq', 200)
 
     // Check URL
-    cy.url().should('include', '/avail/hotels')
+    // cy.url().should('include', '/avail/hotels')
+
+    // Validate successful message
+    homePage.getContactFormSuccessMessage().should('have.text', vendor.home.contactForm.successMessage);
   });
 })

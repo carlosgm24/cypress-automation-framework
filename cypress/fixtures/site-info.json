@@ -1,0 +1,14 @@
+{
+    "name": "Restful Booker Platform",
+    "url": "https://automationintesting.online/",
+    "home": {
+        "contactForm": {
+            "name": "Oliver",
+            "email": "fake@email.com",
+            "phone": "123456789010",
+            "subject": "Cat food",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et aliquet dui, id fermentum purus.",
+            "successMessage": "Thanks for getting in touch Oliver!"
+        }
+    }
+}

@@ -1,9 +1,0 @@
-{
-    "name": "CheapCaribbean",
-    "url": "https://booking.cheapcaribbean.com",
-    "origin": "ORD",
-    "destination": "CUN",
-    "travelDay": "1",
-    "returnDay": "8",
-    "childAge": "5"
-}
