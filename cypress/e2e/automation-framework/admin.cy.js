@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import adminPage from '../../pages/adminPage'
 
-context('Find my trip Page', () => {
+context('Admin Page', () => {
   beforeEach(() => {
     // load site-info.json fixture file and store
     cy.fixture('site-info.json').then((vendor) => {
@@ -13,7 +13,6 @@ context('Find my trip Page', () => {
   })
 
   it('should visit the correct admin site url', () => {
-    cy.once('uncaught:exception', () => false);
     cy.url().should('eq', vendor.url + '#/admin')
   });
 
