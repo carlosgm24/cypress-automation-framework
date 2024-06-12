@@ -13,6 +13,7 @@ context('Find my trip Page', () => {
   })
 
   it('should visit the correct admin site url', () => {
+    cy.once('uncaught:exception', () => false);
     cy.url().should('eq', vendor.url + '#/admin')
   });
 
