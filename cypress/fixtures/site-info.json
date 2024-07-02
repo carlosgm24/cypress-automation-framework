@@ -10,5 +10,11 @@
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et aliquet dui, id fermentum purus.",
             "successMessage": "Thanks for getting in touch Oliver!"
         }
+    },
+    "admin": {
+        "login": {
+            "username": "admin",
+            "password": "password"
+        }
     }
 }

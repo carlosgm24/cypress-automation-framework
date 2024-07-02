@@ -12,7 +12,13 @@ context('Admin Page', () => {
     adminPage.open();
   })
 
-  it('should visit the correct admin site url', () => {
+  it('should visit the correct admin site url and login', () => {
+    // adminPage.interceptRequest('POST', '**/auth/validate', 'sendValidation');
+    // cy.wait('@sendValidation').its('response.statusCode').should('eq', 403)
+
+    //Login
+    adminPage.populateAuthenticate(vendor.admin.login.username, vendor.admin.login.password);
+    adminPage.submitLogin();
     cy.url().should('eq', vendor.url + '#/admin')
   });
 
