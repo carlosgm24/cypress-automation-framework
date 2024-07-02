@@ -8,6 +8,11 @@
             "descriptionInput": "[data-testid='ContactDescription']",
             "submitButton": "#submitContact",
             "successMessage": ".contact h2"
+        },
+        "booking": {
+            "bookRoomButton": ".openBooking",
+            "calendarButtons": ".rbc-calendar button",
+            "calendarMonthView": ".rbc-today"
         }
     }
 }
