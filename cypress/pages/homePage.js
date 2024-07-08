@@ -4,7 +4,6 @@ import locators from '../fixtures/locators.json'
 export class homePage extends sharedPage {
     
     elements = {
-        //searchForm : () => cy.get(locators.home.searchForm, {timeout: 10000}),
         nameInput : () => cy.get(locators.home.contactForm.nameInput),
         emailInput : () => cy.get(locators.home.contactForm.emailInput),
         phoneInput : () => cy.get(locators.home.contactForm.phoneInput),
