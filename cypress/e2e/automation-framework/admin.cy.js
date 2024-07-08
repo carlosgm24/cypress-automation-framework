@@ -13,21 +13,57 @@ context('Admin Page', () => {
   })
 
   it('should visit the correct admin site url and login', () => {
-    // adminPage.interceptRequest('POST', '**/auth/validate', 'sendValidation');
-    // cy.wait('@sendValidation').its('response.statusCode').should('eq', 403)
-
-    //Login
-    adminPage.populateAuthenticate(vendor.admin.login.username, vendor.admin.login.password);
-    adminPage.submitLogin();
     cy.url().should('eq', vendor.url + '#/admin')
   });
 
-  // describe('Field validations', () => {
+  describe('Login/Logout', () => {
+    it('should validate a successful login/logout', () => {
+      // HTTP interceptors
+      adminPage.interceptRequest('POST', '**/auth/login', 'sendLogin');
+      adminPage.interceptRequest('POST', '**/auth/logout', 'sendLogout');
 
-  //   it('should validate error messages in Find Your Reservation Form', () => {
-  //     findMyTripPage.triggerFormErrorMessages();
-  //     findMyTripPage.getReservationNumberError().should('have.text', 'Enter a reservation number.')
-  //     findMyTripPage.getEmailAddressError().should('have.text', 'Enter an email address.')
-  //   });
-  // });
+      //Login
+      adminPage.populateAuthenticate(vendor.admin.login.username, vendor.admin.login.password);
+      adminPage.submitLogin();
+      cy.wait('@sendLogin').its('response.statusCode').should('eq', 200)
+
+      //Logout
+      adminPage.submitLogout();
+      cy.wait('@sendLogout').its('response.statusCode').should('eq', 200)
+    });
+    
+    it('should validate incorrect login', () => {
+      // HTTP interceptors
+      adminPage.interceptRequest('POST', '**/auth/login', 'sendLogin');
+
+      //Bad Login
+      adminPage.populateAuthenticate('fakeUser', 'fakePass');
+      adminPage.submitLogin();
+      cy.wait('@sendLogin').its('response.statusCode').should('eq', 403)
+    });
+  })
+
+  describe ('Rooms', () => {
+    it('should add a new room and validate room count', () => {
+      // HTTP interceptor
+      adminPage.interceptRequest('GET', '**/room', 'getRooms');
+
+      //Login
+      adminPage.populateAuthenticate(vendor.admin.login.username, vendor.admin.login.password);
+      adminPage.submitLogin();
+
+      //Get numbers of rooms before creating one
+      cy.wait('@getRooms')
+      cy.document().then((doc) => {
+        let oldRoomsCount = doc.querySelectorAll("div[data-testid='roomlisting']").length
+
+        //Create new room
+        adminPage.populateRoom('1', '999', ['wifi', 'tv', 'radio']);
+        adminPage.submitCreateRoom();
+
+        //Validate room count increased
+        cy.get("div[data-testid='roomlisting']").should('have.length', oldRoomsCount + 1)
+      })
+    });
+  })
 })

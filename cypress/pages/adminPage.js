@@ -4,11 +4,14 @@ import locators from '../fixtures/locators.json'
 export class adminPage extends sharedPage {
 
     elements = {
-        // reservationNumberInput : () => cy.get(locators.findMyTrip.reservationNumberInput),
-        // reservationNumberError : () => cy.get(locators.findMyTrip.reservationNumberError),
         nameInput : () => cy.get(locators.admin.login.username),
         emailInput : () => cy.get(locators.admin.login.password),
-        loginSubmitButton : () => cy.get(locators.admin.login.submitButton)
+        loginSubmitButton : () => cy.get(locators.admin.login.submitButton),
+        logoutSubmitButton : () => cy.get(locators.admin.logout.submitButton),
+        roomNameInput : () => cy.get(locators.admin.rooms.roomName),
+        roomPriceInput : () => cy.get(locators.admin.rooms.roomPrice),
+        roomFeatures : () => cy.get(locators.admin.rooms.features),
+        createRoomSubmitButton : () => cy.get(locators.admin.rooms.createRoomButton),
     }
 
     open() {
@@ -21,16 +24,19 @@ export class adminPage extends sharedPage {
     submitLogin() {
         this.elements.loginSubmitButton().click()
     }
-    // getReservationNumberError() {
-    //     return this.elements.reservationNumberError();
-    // }
-    // getEmailAddressError() {
-    //     return this.elements.emailAddressError(); 
-    // }
-    // triggerFormErrorMessages() {
-    //     this.elements.reservationNumberInput().click().blur()
-    //     this.elements.emailAddressInput().click().blur()
-    // }
+    submitLogout() {
+        this.elements.logoutSubmitButton().click()
+    }
+    populateRoom(name, price, features) {
+        this.elements.roomNameInput().clear().type(name)
+        this.elements.roomPriceInput().clear().type(price)
+        features.forEach(feature => {
+            cy.get(locators.admin.rooms.features[feature]).click()
+        })
+    }
+    submitCreateRoom() {
+        this.elements.createRoomSubmitButton().click()
+    }
 }
 
 export default new adminPage();

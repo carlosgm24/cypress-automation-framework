@@ -28,15 +28,6 @@ export class homePage extends sharedPage {
         this.elements.phoneInput().clear().type(phone).tab()
         this.elements.subjectInput().clear().type(subject).tab()
         this.elements.descriptionInput().clear().type(description).tab()
-
-        // Travel dates input
-        // this.elements.travelDatesInput().click()
-        // Advance 4 months
-        // for (let i = 0; i < 4; i++) {
-        //   this.elements.calendarNextButton().click()
-        // }
-        // this.elements.monthview().contains(travelDay).click()
-        // this.elements.monthview().contains(returnDay).click()
     }
     submitContactForm() {
         this.elements.contactFormSubmitButton().click()

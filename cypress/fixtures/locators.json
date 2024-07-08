@@ -20,6 +20,22 @@
             "username": "[data-testid='username']",
             "password": "[data-testid='password']",
             "submitButton": "[data-testid='submit']"
+        },
+        "logout": {
+            "submitButton": "a.nav-link[href='#/admin'"
+        },
+        "rooms": {
+            "roomName": "[data-testid='roomName']",
+            "roomPrice": "#roomPrice",
+            "createRoomButton": "#createRoom",
+            "features": {
+                "wifi": "#wifiCheckbox",
+                "tv": "#tvCheckbox",
+                "radio": "#radioCheckbox",
+                "refreshments": "#refreshCheckbox",
+                "safe": "#safeCheckbox",
+                "views": "#viewsCheckbox"
+            }
         }
     }
 }
