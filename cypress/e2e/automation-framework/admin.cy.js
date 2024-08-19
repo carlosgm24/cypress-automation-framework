@@ -1,4 +1,4 @@
-/// <reference types="cypress" />
+// <reference types="cypress" />
 import adminPage from '../../pages/adminPage'
 
 context('Admin Page', () => {

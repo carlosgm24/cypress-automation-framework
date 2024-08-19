@@ -1,4 +1,4 @@
-/// <reference types="cypress" />
+// <reference types="cypress" />
 import homePage from '../../pages/homePage'
 
 context('Home Page', () => {
